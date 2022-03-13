@@ -13,14 +13,13 @@ function processData(jsonData: any) {
 
 //const data = React.useMemo(() => processData(jsonData), []);
 const levels = [
-  { puzzle: 'Day 0', result: '0/6' },
-  { puzzle: 'Day 1', result: '0/6' },
+  { puzzle: 'Day 0', result: 'squares', score: '0/6' },
+  { puzzle: 'Day 1', result: 'squares', score: '0/6' },
 ]
 
 const Archive: React.FC<WithTranslation> = ({ t, i18n }) => {
   return (
     <div className="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div className="flex w-80 mx-auto items-center mb-8">A PAGE</div>
       <table>
         <thead>
           <tr>
@@ -34,6 +33,7 @@ const Archive: React.FC<WithTranslation> = ({ t, i18n }) => {
             <tr>
               <td>{level.puzzle}</td>
               <td>{level.result}</td>
+              <td>{level.score}</td>
             </tr>
           )
         })}
