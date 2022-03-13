@@ -10,6 +10,14 @@ export const isWinningWord = (word: string) => {
   return solution === word
 }
 
+export const getSpecificWord = (index: number) => {
+  return {
+    solution: WORDS[index % WORDS.length],
+    solutionIndex: index,
+    tomorrow: -1
+  }
+}
+
 export const getWordOfDay = () => {
   // January 1, 2022 Game Epoch
   const epochMs = new Date(CONFIG.startDate).valueOf()
@@ -25,4 +33,6 @@ export const getWordOfDay = () => {
   }
 }
 
-export const { solution, solutionIndex, tomorrow } = getWordOfDay()
+//export const { solution, solutionIndex, tomorrow } = getWordOfDay()
+export const { solution, solutionIndex, tomorrow } = getSpecificWord(1)
+
