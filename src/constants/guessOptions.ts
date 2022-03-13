@@ -1,0 +1,1 @@
+export const guessOptions = [1, 2, 3]
