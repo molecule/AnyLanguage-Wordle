@@ -10,7 +10,7 @@ import { InfoModal } from './components/modals/InfoModal'
 import { StatsModal } from './components/modals/StatsModal'
 import { TranslateModal } from './components/modals/TranslateModal'
 import { WIN_MESSAGES } from './constants/strings'
-import { isWordInWordList, isWinningWord, solution } from './lib/words'
+import { isWordInWordList } from './lib/words'
 import { getSpecificWord } from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
@@ -38,11 +38,13 @@ const App: React.FC<WithTranslation> = ({ t, i18n }) => {
   const [isGameLost, setIsGameLost] = useState(false)
   const [successAlert, setSuccessAlert] = useState('')
   const [currentGame] = useState('')
+  const [solution, setSolution] = useState('')
   const [guesses, setGuesses] = useState<string[][]>(() => {
     const loaded = loadGameStateFromLocalStorage()
     if (loaded?.solution !== solution) {
       return []
     }
+    setSolution(getSpecificWord(0).solution)
     const gameWasWon = loaded.guesses
       .map((guess) => guess.join(''))
       .includes(solution)
@@ -65,7 +67,7 @@ const App: React.FC<WithTranslation> = ({ t, i18n }) => {
 
   useEffect(() => {
     saveGameStateToLocalStorage({ guesses, solution })
-  }, [guesses])
+  }, [guesses, solution])
 
   useEffect(() => {
     if (isGameWon) {
@@ -147,10 +149,17 @@ const App: React.FC<WithTranslation> = ({ t, i18n }) => {
     )
   }
 
+  const isWinningWord = (word: string) => {
+    return solution === word
+  }
+
   function selectWordSaveGameState(level: number) {
     console.log('trying to open puzzle', level)
-    getSpecificWord(level)
-    saveGameStateToLocalStorage({ guesses, solution })
+    var obj = getSpecificWord(level)
+    console.log('obj:', obj)
+    saveGameStateToLocalStorage({ guesses: [], solution: obj.solution })
+    setGuesses([])
+    setSolution(obj.solution)
   }
 
   return (

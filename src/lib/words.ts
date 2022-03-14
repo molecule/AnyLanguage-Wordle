@@ -6,9 +6,9 @@ export const isWordInWordList = (word: string) => {
   return WORDS.includes(word) || VALIDGUESSES.includes(word)
 }
 
-export const isWinningWord = (word: string) => {
-  return solution === word
-}
+//export const isWinningWord = (word: string) => {
+ // return solution === word
+//}
 
 export const getSpecificWord = (index: number) => {
   return {
