@@ -2,6 +2,7 @@ import React from 'react'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import App from './App'
 import jsonData from './constants/levels'
+import { getSpecificWord } from './lib/words'
 
 // https://stackoverflow.com/questions/67610911/how-to-use-react-table-for-a-local-json-file
 function processData(jsonData: any) {
@@ -13,13 +14,14 @@ function processData(jsonData: any) {
 
 //const data = React.useMemo(() => processData(jsonData), []);
 const levels = [
-  { puzzle: 'Day 0', result: 'squares0', score: '1/6' },
   { puzzle: 'Day 1', result: 'squares1', score: '0/6' },
+  { puzzle: 'Day 0', result: 'squares0', score: '1/6' },
 ]
 
 const Archive: React.FC<WithTranslation> = ({ t, i18n }) => {
   return (
     <div className="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <App />
       <table>
         <thead>
           <tr>
@@ -32,15 +34,14 @@ const Archive: React.FC<WithTranslation> = ({ t, i18n }) => {
           {levels.map((level) => {
             return (
               <tr>
-                <td>{level.puzzle}</td>
+                <td onClick={(e) => getSpecificWord(0)}>{level.puzzle}</td>
                 <td>{level.result}</td>
-                <td>{level.score}</td>
+                <td onClick={(e) => getSpecificWord(1)}>{level.score}</td>
               </tr>
             )
           })}
         </tbody>
       </table>
-      <App />
     </div>
   )
 }
