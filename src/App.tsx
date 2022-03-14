@@ -11,6 +11,7 @@ import { StatsModal } from './components/modals/StatsModal'
 import { TranslateModal } from './components/modals/TranslateModal'
 import { WIN_MESSAGES } from './constants/strings'
 import { isWordInWordList, isWinningWord, solution } from './lib/words'
+import { getSpecificWord } from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
   loadGameStateFromLocalStorage,
@@ -146,8 +147,20 @@ const App: React.FC<WithTranslation> = ({ t, i18n }) => {
     )
   }
 
+  function selectWordSaveGameState(level: number) {
+    console.log('trying to open puzzle', level)
+    getSpecificWord(level)
+    saveGameStateToLocalStorage({ guesses, solution })
+  }
+
   return (
     <div className="py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <button onClick={() => selectWordSaveGameState(0)}>
+        {t('0 puzzle')}
+      </button>
+      <button onClick={() => selectWordSaveGameState(1)}>
+        {t('1 puzzle')}
+      </button>
       <div className="flex w-80 mx-auto items-center mb-8">
         <h1 className="text-xl grow font-bold">
           Backup Wordle - {currentGame}
